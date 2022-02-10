@@ -2,6 +2,9 @@ import numpy as np
 import tensorflow as tf
 import random as rn
 import os
+
+
+
 os.environ['PYTHONHASHSEED'] = '0'
 
 np.random.seed(42)
@@ -11,7 +14,8 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.models import Model
 from keras.callbacks import TensorBoard
 from keras.models import Sequential
-from keras.optimizers import Adam
+from keras.optimizer_v1 import Adam
+# from keras.optimizers import Adam
 import time
 import pandas as pd
 from keras.callbacks import TensorBoard
