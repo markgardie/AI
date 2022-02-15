@@ -10,6 +10,8 @@ import os
 from scipy import signal
 from shutil import copyfile
 import random
+from imblearn.over_sampling import RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler
 
 
 def Convert_To_06(samples):
@@ -117,26 +119,9 @@ def ConvertTo_8K(SourceDir, TargetDirectory, Prefics, ClassType):
 
 
 def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidDirectory, TestPercent, ValidPercent):
-    Clas1_Files = []
-    Clas2_Files = []
-    Clas3_Files = []
+    Clas1_Files, Clas2_Files, Clas3_Files = create_files_lists()
     Test_Files = []
-    Clas1_ID = "cl_1"
-    Clas2_ID = "cl_2"
-    Clas3_ID = "cl_3"
 
-    Wav_Files = []
-    for d, dirs, files in os.walk(SourceDirectory):
-        for file in files:
-            if file.endswith(".wav"):
-                Wav_Files.append(file)
-    for fwav in Wav_Files:
-        if Clas1_ID in fwav:
-            Clas1_Files.append(fwav)
-        if Clas2_ID in fwav:
-            Clas2_Files.append(fwav)
-        if Clas3_ID in fwav:
-            Clas3_Files.append(fwav)
 
     TestSize = len(Clas1_Files)
     if TestSize > len(Clas2_Files):
@@ -190,12 +175,29 @@ def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidD
         dst = TrainDirectory + "/" + tFile
         copyfile(src, dst)
 
+def get_num_of_files_in_classes(cl1, cl2, cl3):
+    print(len(cl1))
+    print(len(cl2))
+    print(len(cl3))
 
-def get_num_of_files_in_classes():
+def sampling(cl1, cl2, cl3):
+
+    #sampling strategies
+    over_strategy = RandomOverSampler(sampling_strategy=0.1)
+    under_strategy = RandomUnderSampler(sampling_strategy=0.5)
+
+    #oversampling
+    cl3, cl1 = over_strategy.fit_resample(cl3, cl1)
+    cl3, cl2 = over_strategy.fit_resample(cl2, cl1)
+
+    #undersampling
+    cl3, cl1 = under_strategy.fit_resample(cl3, cl1)
+    cl3, cl2 = under_strategy.fit_resample(cl2, cl1)
+
+def create_files_lists():
     Clas1_Files = []
     Clas2_Files = []
     Clas3_Files = []
-    Test_Files = []
     Clas1_ID = "cl_1"
     Clas2_ID = "cl_2"
     Clas3_ID = "cl_3"
@@ -213,12 +215,13 @@ def get_num_of_files_in_classes():
         if Clas3_ID in fwav:
             Clas3_Files.append(fwav)
 
-    print(len(Clas1_Files))
-    print(len(Clas2_Files))
-    print(len(Clas3_Files))
+    return Clas1_Files, Clas2_Files, Clas3_Files
 
+cl1, cl2, cl3 = create_files_lists()
 
-
+get_num_of_files_in_classes(cl1, cl2, cl3)
+# sampling(create_files_lists())
+# get_num_of_files_in_classes(Clas1_Files, Clas2_Files, Clas3_Files)
 
 # ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\cat',
 #              TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
