@@ -175,24 +175,6 @@ def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidD
         dst = TrainDirectory + "/" + tFile
         copyfile(src, dst)
 
-def get_num_of_files_in_classes(cl1, cl2, cl3):
-    print(len(cl1))
-    print(len(cl2))
-    print(len(cl3))
-
-def sampling(cl1, cl2, cl3):
-
-    #sampling strategies
-    over_strategy = RandomOverSampler(sampling_strategy=0.1)
-    under_strategy = RandomUnderSampler(sampling_strategy=0.5)
-
-    #oversampling
-    cl3, cl1 = over_strategy.fit_resample(cl3, cl1)
-    cl3, cl2 = over_strategy.fit_resample(cl2, cl1)
-
-    #undersampling
-    cl3, cl1 = under_strategy.fit_resample(cl3, cl1)
-    cl3, cl2 = under_strategy.fit_resample(cl2, cl1)
 
 def create_files_lists():
     Clas1_Files = []
@@ -217,11 +199,33 @@ def create_files_lists():
 
     return Clas1_Files, Clas2_Files, Clas3_Files
 
-cl1, cl2, cl3 = create_files_lists()
 
-get_num_of_files_in_classes(cl1, cl2, cl3)
-# sampling(create_files_lists())
-# get_num_of_files_in_classes(Clas1_Files, Clas2_Files, Clas3_Files)
+def over_sampling(cl1, cl2, cl3):
+    cl1_cl3_ratio = len(cl1) / len(cl3)
+    cl2_cl3_ratio = len(cl2) / len(cl3)
+
+    while cl1_cl3_ratio != 0.1:
+        random_file = random.randint(0, len(cl1) - 1)
+        new_file = cl1[random_file]
+        cl1.append(new_file)
+        cl1_cl3_ratio = len(cl1) / len(cl3)
+
+    while cl2_cl3_ratio != 0.1:
+        random_file = random.randint(0, len(cl2) - 1)
+        new_file = cl2[random_file]
+        cl2.append(new_file)
+        cl2_cl3_ratio = len(cl2) / len(cl3)
+
+
+def under_sampling(cl1, cl2, cl3):
+    cl1_cl3_ratio = len(cl1) / len(cl3)
+
+    while cl1_cl3_ratio != 0.5:
+        random_file = random.randint(0, len(cl3) - 1)
+        delete_file = cl3[random_file]
+        cl3.remove(delete_file)
+        cl1_cl3_ratio = len(cl1) / len(cl3)
+
 
 # ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\cat',
 #              TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
