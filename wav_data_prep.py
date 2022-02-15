@@ -190,13 +190,51 @@ def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidD
         dst = TrainDirectory + "/" + tFile
         copyfile(src, dst)
 
-# ConvertTo_8K(SourceDir=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Source_data\yes', TargetDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data', Prefics='yes',
-#                  ClassType='cl_1')
-# ConvertTo_8K(SourceDir=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Source_data\no', TargetDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data', Prefics='no',
-#                  ClassType='cl_2')
-# ConvertTo_8K(SourceDir=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Source_data\down', TargetDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data', Prefics='other',
-#                  ClassType='cl_3')
+ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\cat',
+             TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+             Prefics='cat',
+             ClassType='cl_1')
 
+ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\happy',
+             TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+             Prefics='happy',
+             ClassType='cl_2')
+
+words = ['_background_noise_',
+         'bed',
+         'bird',
+         'dog',
+         'down',
+         'eight',
+         'five',
+         'four',
+         'go',
+         'house',
+         'left',
+         'marvin',
+         'nine',
+         'no',
+         'off',
+         'on',
+         'one',
+         'right',
+         'seven',
+         'sheila',
+         'six',
+         'stop',
+         'three',
+         'tree',
+         'two',
+         'up',
+         'wow',
+         'yes',
+         'zero']
+
+for i in words:
+    ConvertTo_8K(SourceDir=fr'E:\Programming\KPI_Projects\AI\source_data\{i}',
+                 TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+                 Prefics=f'other_{i}',
+                 ClassType='cl_3')
 
 # Divide_TrainTestValid(SourceDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data',
 #                           TrainDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Train',
