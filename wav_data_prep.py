@@ -190,51 +190,81 @@ def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidD
         dst = TrainDirectory + "/" + tFile
         copyfile(src, dst)
 
-ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\cat',
-             TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
-             Prefics='cat',
-             ClassType='cl_1')
 
-ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\happy',
-             TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
-             Prefics='happy',
-             ClassType='cl_2')
+def get_num_of_files_in_classes():
+    Clas1_Files = []
+    Clas2_Files = []
+    Clas3_Files = []
+    Test_Files = []
+    Clas1_ID = "cl_1"
+    Clas2_ID = "cl_2"
+    Clas3_ID = "cl_3"
 
-words = ['_background_noise_',
-         'bed',
-         'bird',
-         'dog',
-         'down',
-         'eight',
-         'five',
-         'four',
-         'go',
-         'house',
-         'left',
-         'marvin',
-         'nine',
-         'no',
-         'off',
-         'on',
-         'one',
-         'right',
-         'seven',
-         'sheila',
-         'six',
-         'stop',
-         'three',
-         'tree',
-         'two',
-         'up',
-         'wow',
-         'yes',
-         'zero']
+    Wav_Files = []
+    for d, dirs, files in os.walk('E:\Programming\KPI_Projects\AI\my_data'):
+        for file in files:
+            if file.endswith(".wav"):
+                Wav_Files.append(file)
+    for fwav in Wav_Files:
+        if Clas1_ID in fwav:
+            Clas1_Files.append(fwav)
+        if Clas2_ID in fwav:
+            Clas2_Files.append(fwav)
+        if Clas3_ID in fwav:
+            Clas3_Files.append(fwav)
 
-for i in words:
-    ConvertTo_8K(SourceDir=fr'E:\Programming\KPI_Projects\AI\source_data\{i}',
-                 TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
-                 Prefics=f'other_{i}',
-                 ClassType='cl_3')
+    print(len(Clas1_Files))
+    print(len(Clas2_Files))
+    print(len(Clas3_Files))
+
+
+
+
+# ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\cat',
+#              TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+#              Prefics='cat',
+#              ClassType='cl_1')
+#
+# ConvertTo_8K(SourceDir=r'E:\Programming\KPI_Projects\AI\source_data\happy',
+#              TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+#              Prefics='happy',
+#              ClassType='cl_2')
+#
+# words = ['_background_noise_',
+#          'bed',
+#          'bird',
+#          'dog',
+#          'down',
+#          'eight',
+#          'five',
+#          'four',
+#          'go',
+#          'house',
+#          'left',
+#          'marvin',
+#          'nine',
+#          'no',
+#          'off',
+#          'on',
+#          'one',
+#          'right',
+#          'seven',
+#          'sheila',
+#          'six',
+#          'stop',
+#          'three',
+#          'tree',
+#          'two',
+#          'up',
+#          'wow',
+#          'yes',
+#          'zero']
+#
+# for i in words:
+#     ConvertTo_8K(SourceDir=fr'E:\Programming\KPI_Projects\AI\source_data\{i}',
+#                  TargetDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+#                  Prefics=f'other_{i}',
+#                  ClassType='cl_3')
 
 # Divide_TrainTestValid(SourceDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data',
 #                           TrainDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Train',
