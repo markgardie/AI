@@ -118,8 +118,15 @@ def ConvertTo_8K(SourceDir, TargetDirectory, Prefics, ClassType):
             wavfile.write(curerentFile, sample_rate, Samples_final)
 
 
-def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidDirectory, TestPercent, ValidPercent):
-    Clas1_Files, Clas2_Files, Clas3_Files = create_files_lists()
+def Divide_TrainTestValid(Clas1_Files,
+                          Clas2_Files,
+                          Clas3_Files,
+                          SourceDirectory,
+                          TrainDirectory,
+                          TestDirectory,
+                          ValidDirectory,
+                          TestPercent,
+                          ValidPercent):
     Test_Files = []
 
 
@@ -273,9 +280,17 @@ def under_sampling(cl1, cl2, cl3):
 #                  Prefics=f'other_{i}',
 #                  ClassType='cl_3')
 
-# Divide_TrainTestValid(SourceDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data',
-#                           TrainDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Train',
-#                           TestDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Test',
-#                           ValidDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Valid',
-#                           TestPercent=0.1,
-#                           ValidPercent=0.1)
+cl1, cl2, cl3 = create_files_lists()
+
+over_sampling(cl1, cl2, cl3)
+under_sampling(cl1, cl2, cl3)
+
+Divide_TrainTestValid(cl1,
+                      cl2,
+                      cl3,
+                      SourceDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+                      TrainDirectory=r'E:\Programming\KPI_Projects\AI\train',
+                      TestDirectory=r'E:\Programming\KPI_Projects\AI\test',
+                      ValidDirectory=r'E:\Programming\KPI_Projects\AI\valid',
+                      TestPercent=0.1,
+                      ValidPercent=0.1)
