@@ -209,27 +209,23 @@ def create_files_lists():
 
 def over_sampling(cl1, cl2, cl3):
     cl1_cl3_ratio = len(cl1) / len(cl3)
-    cl2_cl3_ratio = len(cl2) / len(cl3)
 
-    while cl1_cl3_ratio != 0.1:
-        random_file = random.randint(0, len(cl1) - 1)
-        new_file = cl1[random_file]
-        cl1.append(new_file)
+    while cl1_cl3_ratio != 0.5:
+        random_index = random.randint(0, len(cl1) - 1)
+        new_file_cl1 = cl1[random_index]
+        new_file_cl2 = cl2[random_index]
+        cl1.append(new_file_cl1)
+        cl2.append(new_file_cl2)
         cl1_cl3_ratio = len(cl1) / len(cl3)
 
-    while cl2_cl3_ratio != 0.1:
-        random_file = random.randint(0, len(cl2) - 1)
-        new_file = cl2[random_file]
-        cl2.append(new_file)
-        cl2_cl3_ratio = len(cl2) / len(cl3)
 
 
 def under_sampling(cl1, cl2, cl3):
     cl1_cl3_ratio = len(cl1) / len(cl3)
 
-    while cl1_cl3_ratio != 0.5:
-        random_file = random.randint(0, len(cl3) - 1)
-        delete_file = cl3[random_file]
+    while cl1_cl3_ratio != 0.1:
+        random_index = random.randint(0, len(cl3) - 1)
+        delete_file = cl3[random_index]
         cl3.remove(delete_file)
         cl1_cl3_ratio = len(cl1) / len(cl3)
 
@@ -282,8 +278,9 @@ def under_sampling(cl1, cl2, cl3):
 
 cl1, cl2, cl3 = create_files_lists()
 
-over_sampling(cl1, cl2, cl3)
 under_sampling(cl1, cl2, cl3)
+over_sampling(cl1, cl2, cl3)
+
 
 Divide_TrainTestValid(cl1,
                       cl2,
