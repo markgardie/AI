@@ -118,8 +118,15 @@ def ConvertTo_8K(SourceDir, TargetDirectory, Prefics, ClassType):
             wavfile.write(curerentFile, sample_rate, Samples_final)
 
 
-def Divide_TrainTestValid(SourceDirectory, TrainDirectory, TestDirectory, ValidDirectory, TestPercent, ValidPercent):
-    Clas1_Files, Clas2_Files, Clas3_Files = create_files_lists()
+def Divide_TrainTestValid(Clas1_Files,
+                          Clas2_Files,
+                          Clas3_Files,
+                          SourceDirectory,
+                          TrainDirectory,
+                          TestDirectory,
+                          ValidDirectory,
+                          TestPercent,
+                          ValidPercent):
     Test_Files = []
 
 
@@ -202,27 +209,22 @@ def create_files_lists():
 
 def over_sampling(cl1, cl2, cl3):
     cl1_cl3_ratio = len(cl1) / len(cl3)
-    cl2_cl3_ratio = len(cl2) / len(cl3)
 
-    while cl1_cl3_ratio != 0.1:
-        random_file = random.randint(0, len(cl1) - 1)
-        new_file = cl1[random_file]
-        cl1.append(new_file)
+    while cl1_cl3_ratio != 0.5:
+        random_index = random.randint(0, len(cl1) - 1)
+        new_file_cl1 = cl1[random_index]
+        new_file_cl2 = cl2[random_index]
+        cl1.append(new_file_cl1)
+        cl2.append(new_file_cl2)
         cl1_cl3_ratio = len(cl1) / len(cl3)
-
-    while cl2_cl3_ratio != 0.1:
-        random_file = random.randint(0, len(cl2) - 1)
-        new_file = cl2[random_file]
-        cl2.append(new_file)
-        cl2_cl3_ratio = len(cl2) / len(cl3)
 
 
 def under_sampling(cl1, cl2, cl3):
     cl1_cl3_ratio = len(cl1) / len(cl3)
 
-    while cl1_cl3_ratio != 0.5:
-        random_file = random.randint(0, len(cl3) - 1)
-        delete_file = cl3[random_file]
+    while cl1_cl3_ratio != 0.1:
+        random_index = random.randint(0, len(cl3) - 1)
+        delete_file = cl3[random_index]
         cl3.remove(delete_file)
         cl1_cl3_ratio = len(cl1) / len(cl3)
 
@@ -273,9 +275,18 @@ def under_sampling(cl1, cl2, cl3):
 #                  Prefics=f'other_{i}',
 #                  ClassType='cl_3')
 
-# Divide_TrainTestValid(SourceDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\My_data',
-#                           TrainDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Train',
-#                           TestDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Test',
-#                           ValidDirectory=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining\Valid',
-#                           TestPercent=0.1,
-#                           ValidPercent=0.1)
+cl1, cl2, cl3 = create_files_lists()
+
+under_sampling(cl1, cl2, cl3)
+over_sampling(cl1, cl2, cl3)
+print("sampling is done")
+
+Divide_TrainTestValid(cl1,
+                      cl2,
+                      cl3,
+                      SourceDirectory=r'E:\Programming\KPI_Projects\AI\my_data',
+                      TrainDirectory=r'E:\Programming\KPI_Projects\AI\train',
+                      TestDirectory=r'E:\Programming\KPI_Projects\AI\test',
+                      ValidDirectory=r'E:\Programming\KPI_Projects\AI\valid',
+                      TestPercent=0.1,
+                      ValidPercent=0.1)
