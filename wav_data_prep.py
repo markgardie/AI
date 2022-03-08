@@ -219,7 +219,6 @@ def over_sampling(cl1, cl2, cl3):
         cl1_cl3_ratio = len(cl1) / len(cl3)
 
 
-
 def under_sampling(cl1, cl2, cl3):
     cl1_cl3_ratio = len(cl1) / len(cl3)
 
@@ -280,7 +279,7 @@ cl1, cl2, cl3 = create_files_lists()
 
 under_sampling(cl1, cl2, cl3)
 over_sampling(cl1, cl2, cl3)
-
+print("sampling is done")
 
 Divide_TrainTestValid(cl1,
                       cl2,
