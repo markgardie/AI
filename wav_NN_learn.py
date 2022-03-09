@@ -238,14 +238,14 @@ def TestNN_(NetName, SourceDir, TargetFile, window_size):
     f.close()
 
 print('---start Learn---', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-Learn_NN_5L_(TrainDir=r'E:\Programming\KPI_Projects\AI\train',
-             ValidDir=r'E:\Programming\KPI_Projects\AI\valid',
-             RezDir=r'E:\Programming\KPI_Projects\AI\res',
+Learn_NN_5L_(TrainDir=r'E:\Programming\KPI_Projects\AI\train\\',
+             ValidDir=r'E:\Programming\KPI_Projects\AI\valid\\',
+             RezDir=r'E:\Programming\KPI_Projects\AI\res\\',
              NN_Name='NN_L5', Epochs=5, window_size=25, windoe_fuction='hann')
 
 print('---end  Learn---', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
 
-TestNN_(NetName=r'E:\Programming\KPI_Projects\AI\res\NN_L5_Best.hdf5',
-            SourceDir=r'E:\Programming\KPI_Projects\AI\test',
-            TargetFile=r'E:\Programming\KPI_Projects\AI\res\NN_L5_rez',
+TestNN_(NetName=r'E:\Programming\KPI_Projects\AI\res\NN_L5_Best.hdf5\\',
+            SourceDir=r'E:\Programming\KPI_Projects\AI\test\\',
+            TargetFile=r'E:\Programming\KPI_Projects\AI\res\NN_L5_rez\\',
             window_size=25)
