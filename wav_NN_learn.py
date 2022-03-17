@@ -182,7 +182,7 @@ def TestNN_(NetName, SourceDir, TargetFile, window_size):
     for d, dirs, files in os.walk(SourceDir):
         for file in files:
             if file.endswith(".wav"):
-                sample_rate, samples = wavfile.read(SourceDir + file)
+                sample_rate, samples = wavfile.read(SourceDir + "/" + file)
                 if sample_rate != 8000:
                     continue
                 if max(abs(samples)) < 410:
