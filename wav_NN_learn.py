@@ -28,6 +28,8 @@ from scipy import signal
 from scipy.io import wavfile
 import random
 
+tf.compat.v1.disable_eager_execution()
+
 
 def Load_Wav_(WorkDir):
     Input_Files = []
@@ -180,7 +182,7 @@ def TestNN_(NetName, SourceDir, TargetFile, window_size):
     for d, dirs, files in os.walk(SourceDir):
         for file in files:
             if file.endswith(".wav"):
-                sample_rate, samples = wavfile.read(SourceDir + file)
+                sample_rate, samples = wavfile.read(SourceDir + "/" + file)
                 if sample_rate != 8000:
                     continue
                 if max(abs(samples)) < 410:
@@ -238,14 +240,14 @@ def TestNN_(NetName, SourceDir, TargetFile, window_size):
     f.close()
 
 print('---start Learn---', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-Learn_NN_5L_(TrainDir='e:\Sasha\Shevchenko\Lekcii\PracticalTraining/Train/',
-             ValidDir='e:\Sasha\Shevchenko\Lekcii\PracticalTraining/valid/',
-             RezDir='e:\Sasha\Shevchenko\Lekcii\PracticalTraining/Rez_dir/',
-             NN_Name='NN_L5', Epochs=5, window_size=25, windoe_fuction='hann')
+Learn_NN_5L_(TrainDir=r'E:\Programming\KPI_Projects\AI\train\\',
+             ValidDir=r'E:\Programming\KPI_Projects\AI\valid\\',
+             RezDir=r'E:\Programming\KPI_Projects\AI\res\\',
+             NN_Name='NN_L5', Epochs=15, window_size=25, windoe_fuction='hann')
 
 print('---end  Learn---', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
 
-TestNN_(NetName=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining/Rez_dir/NN_L5_Best.hdf5',
-            SourceDir=r'e:\Sasha\Shevchenko\Lekcii\PracticalTraining/test/',
-            TargetFile='e:\Sasha\Shevchenko\Lekcii\PracticalTraining/Rez_dir/NN_L5_rez',
+TestNN_(NetName=r'E:\Programming\KPI_Projects\AI\res\NN_L5_Best.hdf5',
+            SourceDir=r'E:\Programming\KPI_Projects\AI\test',
+            TargetFile=r'E:\Programming\KPI_Projects\AI\res\NN_L5_rez',
             window_size=25)

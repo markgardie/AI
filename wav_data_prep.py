@@ -10,8 +10,6 @@ import os
 from scipy import signal
 from shutil import copyfile
 import random
-from imblearn.over_sampling import RandomOverSampler
-from imblearn.under_sampling import RandomUnderSampler
 
 
 def Convert_To_06(samples):
