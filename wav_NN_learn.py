@@ -243,7 +243,7 @@ print('---start Learn---', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(tim
 Learn_NN_5L_(TrainDir=r'E:\Programming\KPI_Projects\AI\train\\',
              ValidDir=r'E:\Programming\KPI_Projects\AI\valid\\',
              RezDir=r'E:\Programming\KPI_Projects\AI\res\\',
-             NN_Name='NN_L5', Epochs=15, window_size=25, windoe_fuction='hann')
+             NN_Name='NN_L5', Epochs=10, window_size=25, windoe_fuction='hann')
 
 print('---end  Learn---', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
 
